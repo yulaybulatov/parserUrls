@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Сколько тегов на странице{% endblock %}
+{% block body %}
+
+    <h1>Теги</h1>
+
+    <table border="2" width="20%" style="table-layout: fixed">
+        {% for url, content in urls %}
+            <tr>
+                <td colspan="2"><strong>URL</strong>: {{ url }}</td>
+            </tr>
+
+            {% if content.error is defined %}
+                <tr>
+                    <td colspan="2" style="color: red">{{ content.error|markdown_to_html }}</td>
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <th>Тег</th>
+                    <th>Количество</th>
+                </tr>
+
+                {% for tag, count in content.tags %}
+                    <tr>
+                        <td>&lt;{{ tag }}&gt;</td>
+                        <td>{{ count }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
